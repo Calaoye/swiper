@@ -3,7 +3,7 @@ from django.utils.deprecation import MiddlewareMixin
 
 from user.models import User
 from lib.http import render_json
-# from common import error
+from common import error
 
 
 class AuthMiddleware(MiddlewareMixin):
@@ -26,6 +26,7 @@ class AuthMiddleware(MiddlewareMixin):
                 request.user = User.objects.get(id=uid)
                 return
             except User.DoesNotExist:
+                # 清空session
                 request.session.flush()
         return render_json(None, code=error.LOGIN_ERROR)
 
