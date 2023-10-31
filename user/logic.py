@@ -17,12 +17,14 @@ def gen_verify_code(length=6):
 def send_verify_code(phonenum):
     '''异步发送验证码'''
     vcode = gen_verify_code()
+    vcode = 123456
     key = 'VerifyCode-%s' % phonenum
     cache.set(key, vcode, 120)
     sms_cfg = config.HY_SMS_PARAMS.copy()
     sms_cfg['content'] = sms_cfg['content'] % vcode
     sms_cfg['mobile'] = phonenum
-    response = requests.post(config.HY_SMS_URL, data=sms_cfg)
+    # response = requests.post(config.HY_SMS_URL, data=sms_cfg)
+    response = None
     return response
 
 

@@ -1,5 +1,5 @@
 from lib.http import render_json
-# from common import error
+from common import error
 from user.logic import send_verify_code, check_vcode
 from user.models import User
 # from user.forms import ProfileForm
