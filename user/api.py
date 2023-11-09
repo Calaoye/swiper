@@ -1,14 +1,15 @@
 from lib.http import render_json
 from common import error
-from user.logic import send_verify_code, check_vcode
+from user.logic import send_verify_code, check_vcode, save_upload_file, async_send_verify_code
 from user.models import User
-# from user.forms import ProfileForm
+from user.forms import ProfileForm
 
 
 def get_verify_code(request):
     '''手机注册'''
     phonenum = request.GET.get('phonenum')
     send_verify_code(phonenum)
+    # async_send_verify_code(phonenum)
     return render_json(None, 0)
 
 
@@ -46,4 +47,9 @@ def modify_profile(request):
 
 def upload_avatar(request):
     '''头像上传'''
-    pass
+    file = request.FILES.get('avatar')
+    if file:
+        save_upload_file(request.user, file)
+        return render_json(None)
+    else:
+        return render_json(None, error.FILE_NOT_FOUND)
