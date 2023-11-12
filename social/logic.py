@@ -1,8 +1,8 @@
 import datetime
 
 from user.models import User
-# from social.models import Swiped
-# from social.models import Friend
+from social.models import Swiped
+from social.models import Friend
 
 
 def get_rcmd_users(user):
@@ -22,7 +22,6 @@ def get_rcmd_users(user):
     min_year = current_year - min_age
     max_year = current_year - max_age
 
-    print(sex, location, min_year, max_year)
     users = User.objects.filter(sex=sex, location=location,
                                 birth_year__gte=max_year,
                                 birth_year__lte=min_year)
